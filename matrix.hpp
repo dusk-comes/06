@@ -13,8 +13,6 @@ class Matrix
 
         Matrix();
 
-        void set(Index, T);
-        T& get(Index);
         size_t size();
 
         MatrixProxy operator[](size_t);
@@ -22,20 +20,26 @@ class Matrix
         class MatrixProxy
         {
             public:
-                MatrixProxy(Matrix&, int);
                 MatrixProxy& operator[](size_t);
                 MatrixProxy& operator=(const T&);
                 operator T&();
                 bool operator==(const T&);
-                T& get();
         
             private:
                 Matrix &_matrix;
                 Index _index;
                 int _current_dim;
+
+                friend class Matrix;
+                MatrixProxy(Matrix&, int);
+
+                T& get();
         };
 
     private:
         T _default_value = DefVal;
         std::map<Index, T> _matrix;
+
+        void set(Index, T);
+        T& get(Index);
 };
