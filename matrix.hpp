@@ -14,6 +14,8 @@ class Matrix
         Matrix();
 
         size_t size();
+        Iterator begin();
+        Iterator end();
 
         MatrixProxy operator[](size_t);
 

@@ -35,6 +35,18 @@ size_t Matrix<T, DefVal, Dim>::size()
 }
 
 template <typename T, T DefVal, int Dim>
+auto Matrix<T, DefVal, Dim>::begin() -> Iterator
+{
+    return _matrix.begin();
+}
+
+template <typename T, T DefVal, int Dim>
+auto Matrix<T, DefVal, Dim>::end() -> Iterator
+{
+    return _matrix.end();
+}
+
+template <typename T, T DefVal, int Dim>
 auto Matrix<T, DefVal, Dim>::operator[](size_t axis) -> MatrixProxy
 {
     return MatrixProxy(*this, axis);

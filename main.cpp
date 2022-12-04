@@ -7,5 +7,6 @@ int main()
     m[2][2] = 3;
     [[maybe_unused]] int val = m[2][2];
     assert(m[1][1] == 0);
+
     return 0;
 }
