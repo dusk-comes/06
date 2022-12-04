@@ -73,10 +73,22 @@ auto Matrix<T, DefVal, Dim>::MatrixProxy::operator=(const T &value) -> MatrixPro
 template <typename T, T DefVal, int Dim>
 Matrix<T, DefVal, Dim>::MatrixProxy::operator T&()
 {
+    return this->get();
+}
+
+template <typename T, T DefVal, int Dim>
+T& Matrix<T, DefVal, Dim>::MatrixProxy::get()
+{
     if (_current_dim < Dim)
         throw std::range_error ("Attempt to accesss a matrix by not fulfilled index");
 
     return _matrix.get(_index);
+}
+
+template <typename T, T DefVal, int Dim>
+bool Matrix<T, DefVal, Dim>::MatrixProxy::operator==(const T &value)
+{
+    return this->get() == value;
 }
 
 template class Matrix<int, 0, 2>;

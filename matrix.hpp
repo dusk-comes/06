@@ -26,6 +26,8 @@ class Matrix
                 MatrixProxy& operator[](size_t);
                 MatrixProxy& operator=(const T&);
                 operator T&();
+                bool operator==(const T&);
+                T& get();
         
             private:
                 Matrix &_matrix;
