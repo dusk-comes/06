@@ -9,7 +9,7 @@ set(MSVC_CXX $<$<COMPILE_LANG_AND_ID:CXX,MSVC>:-W4>)
 
 project(homework-6 VERSION ${PROJECT_VERSION})
 
-add_executable(${TARGET} main.cpp matrix.cpp)
+add_executable(${TARGET} main.cpp)
 
 set_target_properties(${TARGET} PROPERTIES
     CXX_STANDARD 17

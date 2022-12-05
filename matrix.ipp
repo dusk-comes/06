@@ -1,12 +1,11 @@
-#include "matrix.hpp"
 #include <stdexcept>
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 Matrix<T, DefVal, Dim>::Matrix()
 {
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 void Matrix<T, DefVal, Dim>::set(Index index, T value)
 {
     if (auto pos = _matrix.find(index); pos != _matrix.end() && value == DefVal)
@@ -19,7 +18,7 @@ void Matrix<T, DefVal, Dim>::set(Index index, T value)
         _matrix[index] = value;
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 T& Matrix<T, DefVal, Dim>::get(Index index)
 {
     if (auto element = _matrix.find(index); element == _matrix.end())
@@ -28,32 +27,32 @@ T& Matrix<T, DefVal, Dim>::get(Index index)
         return element->second;
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 size_t Matrix<T, DefVal, Dim>::size()
 {
     return _matrix.size();
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 auto Matrix<T, DefVal, Dim>::begin() -> Iterator
 {
     return _matrix.begin();
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 auto Matrix<T, DefVal, Dim>::end() -> Iterator
 {
     return _matrix.end();
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 auto Matrix<T, DefVal, Dim>::operator[](size_t axis) -> MatrixProxy
 {
     return MatrixProxy(*this, axis);
 }
 
-template <typename T, T DefVal, int Dim>
-Matrix<T, DefVal, Dim>::Matrix::MatrixProxy::MatrixProxy(Matrix &m, int axis) :
+template <typename T, T DefVal, size_t Dim>
+Matrix<T, DefVal, Dim>::Matrix::MatrixProxy::MatrixProxy(Matrix &m, size_t axis) :
     _matrix(m),
     _index{axis},
     _current_dim{1}
@@ -62,7 +61,7 @@ Matrix<T, DefVal, Dim>::Matrix::MatrixProxy::MatrixProxy(Matrix &m, int axis) :
         throw std::out_of_range ("Number of axiss exceed dimensions of matrix");
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 auto Matrix<T, DefVal, Dim>::MatrixProxy::operator[](size_t axis) -> MatrixProxy&
 {
     if (_current_dim >= Dim)
@@ -72,7 +71,7 @@ auto Matrix<T, DefVal, Dim>::MatrixProxy::operator[](size_t axis) -> MatrixProxy
     return *this;
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 auto Matrix<T, DefVal, Dim>::MatrixProxy::operator=(const T &value) -> MatrixProxy&
 {
     if (_current_dim < Dim)
@@ -82,13 +81,13 @@ auto Matrix<T, DefVal, Dim>::MatrixProxy::operator=(const T &value) -> MatrixPro
     return *this;
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 Matrix<T, DefVal, Dim>::MatrixProxy::operator T&()
 {
     return this->get();
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 T& Matrix<T, DefVal, Dim>::MatrixProxy::get()
 {
     if (_current_dim < Dim)
@@ -97,10 +96,8 @@ T& Matrix<T, DefVal, Dim>::MatrixProxy::get()
     return _matrix.get(_index);
 }
 
-template <typename T, T DefVal, int Dim>
+template <typename T, T DefVal, size_t Dim>
 bool Matrix<T, DefVal, Dim>::MatrixProxy::operator==(const T &value)
 {
     return this->get() == value;
 }
-
-template class Matrix<int, 0, 2>;

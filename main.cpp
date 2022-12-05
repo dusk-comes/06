@@ -4,11 +4,6 @@
 
 int main()
 {
-    Matrix<int, 0, 2> m;
-    m[2][2] = 3;
-    [[maybe_unused]] int val = m[2][2];
-    assert(m[1][1] == 0);
-
     Matrix<int, 0> matrix;
 
     for (size_t i = 0, j = 0; i < 10; ++i, ++j)

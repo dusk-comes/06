@@ -2,11 +2,11 @@
 #include <cstddef>
 #include <map>
 
-template <typename T, T DefVal, int Dim=2>
+template <typename T, T DefVal, size_t Dim=2>
 class Matrix
 {
     public:
-        using Index = std::array<int, Dim>;
+        using Index = std::array<size_t, Dim>;
         using Iterator = typename std::map<Index, T>::iterator;
         class MatrixProxy;
         friend class MatrixProxy;
@@ -30,10 +30,10 @@ class Matrix
             private:
                 Matrix &_matrix;
                 Index _index;
-                int _current_dim;
+                size_t _current_dim;
 
                 friend class Matrix;
-                MatrixProxy(Matrix&, int);
+                MatrixProxy(Matrix&, size_t);
 
                 T& get();
         };
@@ -45,3 +45,5 @@ class Matrix
         void set(Index, T);
         T& get(Index);
 };
+
+#include "matrix.ipp"
